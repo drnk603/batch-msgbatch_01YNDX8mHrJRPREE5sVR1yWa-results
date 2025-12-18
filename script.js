@@ -14,9 +14,9 @@
     };
 
     const patterns = {
-        email: /^[^s@]+@[^s@]+.[^s@]+$/,
-        phone: /^[ds+-()]{10,20}$/,
-        name: /^[a-zA-ZÀ-ÿs-']{2,50}$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        phone: /^[\d+\-()]{10,20}$/,
+        name: /^[a-zA-ZÀ-ÿ\s-']{2,50}$/,
         text: /^.{10,1000}$/
     };
 
@@ -87,7 +87,6 @@
             this.collapse.classList.add('show');
             this.toggle.setAttribute('aria-expanded', 'true');
             document.body.style.overflow = 'hidden';
-            
             this.collapse.style.height = `calc(100vh - ${this.navbar.offsetHeight}px)`;
         }
 
@@ -174,7 +173,6 @@
                 if (target) {
                     e.preventDefault();
                     const targetPosition = target.offsetTop - this.headerHeight;
-                    
                     window.scrollTo({
                         top: Math.max(0, targetPosition),
                         behavior: 'smooth'
@@ -286,7 +284,6 @@
 
         showError(field, message) {
             field.classList.add('is-invalid');
-            
             let errorDiv = field.parentElement.querySelector('.invalid-feedback');
             if (!errorDiv) {
                 errorDiv = document.createElement('div');
@@ -321,7 +318,6 @@
         submitForm(form, submitBtn) {
             const formData = new FormData(form);
             const data = {};
-            
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
             }
@@ -676,10 +672,7 @@
                 to { opacity: 1; }
             }
             @keyframes slideUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
+                from { height: 0; max-height: calc(100vh - var(--header-h)); opacity: 1; }
                 to {
                     opacity: 1;
                     transform: translateY(0);
